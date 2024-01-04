@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function createrandom() {
+            return 1 + (Math.random() * ((3 - 1) + 1));
+
+        }
+
+        let randomNumber = createrandom();
+
+        let computerChoice = function getComputerChoice(random) {
+            switch (random) {
+                case 1:
+                    return "rock";
+                    break;
+                case 2:
+                    return "paper";
+                    break;
+                case 3:
+                    return "scissors";
+                    break;
+            }
+        }
+        console.log(randomNumber);
+        computerChoice();
+        console.log(computerChoice);
+
+
+
+
+    </script>
+</body>
+
+</html>
