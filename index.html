@@ -10,79 +10,104 @@
 
 <body>
     <script>
-        function createrandom() {
-            let randomDecimal = 1 + (Math.random() * ((2 - 1) + 1));
-            return Math.round(randomDecimal);
 
-        }
 
-        function convertRandomNumber() {
-            let choice;
-            let randomNumber = createrandom();
-            switch (randomNumber) {
-                case 1:
-                    choice = "rock";
-                    break;
-                case 2: choice = "paper";
-                    break;
-                case 3: choice = "scissors";
-                    break;
+
+        function playRound() {
+
+            function createrandom() {
+                let randomDecimal = 1 + (Math.random() * ((2 - 1) + 1));
+                return Math.round(randomDecimal);
+
             }
-            return choice;
-        }
 
-        function getPlayerSelection() {
-            choice = prompt("Choose rock, paper, or scissors", "");
-            return choice.toLowerCase();
-        }
+            function getComputerSelection() {
+                let choice;
+                let randomNumber = createrandom();
+                switch (randomNumber) {
+                    case 1:
+                        choice = "rock";
+                        break;
+                    case 2: choice = "paper";
+                        break;
+                    case 3: choice = "scissors";
+                        break;
+                }
+                return choice;
+            }
 
-        function playRound(computerChoice, playerChoice) {
+            function getPlayerSelection() {
+                choice = prompt("Choose rock, paper, or scissors", "");
+                return choice.toLowerCase();
+            }
+
+            let computerChoice = getComputerSelection();
+            let playerChoice = getPlayerSelection();
             let outcome;
+            console.log("You chose " + playerChoice + " and I chose " + computerChoice);
             if (computerChoice == "rock") {
                 switch (playerChoice) {
                     case "rock":
-                        outcome = "Tie game!";
+                        outcome = "tie";
                         break;
                     case "paper":
-                        outcome = "Paper covers rock ): You win.";
+                        outcome = "player";
                         break;
                     case "scissors":
-                        outcome = "Rock beats scissors! I win tee hee (:";
+                        outcome = "computer";
                         break;
                 }
             } else if (computerChoice == "paper") {
                 switch (playerChoice) {
                     case "rock":
-                        outcome = "Paper covers rock (: I win.";
+                        outcome = "computer";
                         break;
                     case "paper":
-                        outcome = "Tie game. Lame";
+                        outcome = "tie";
                         break;
                     case "scissors":
-                        outcome = "Scissors cuts paper ): You win.";
+                        outcome = "player";
                         break;
                 }
             } else {
                 switch (playerChoice) {
                     case "rock":
-                        outcome = "Rock beats scissors ): You win.";
+                        outcome = "player";
                         break;
                     case "paper":
-                        outcome = "Scissors cut paper (: I win.";
+                        outcome = "computer";
                         break;
                     case "scissors":
-                        outcome = "Tie.";
+                        outcome = "tie";
                         break;
                 }
             }
             return outcome;
         }
-        const computerChoice = convertRandomNumber();
-        const playerChoice = getPlayerSelection();
-        console.log("You chose " + playerChoice);
-        console.log("I chose " + computerChoice);
-        console.log(playRound(computerChoice, playerChoice));
+        function playGame() {
+            let computerScore = 0;
+            let playerScore = 0;
+            for (let i = 1; i <= 5; i++) {
+                let roundOutcome = playRound();
+                if (roundOutcome === "computer") {
+                    computerScore = +computerScore + 1;
+                    console.log(`Haha got 'em. Your score: ${playerScore} My Score: ${computerScore}`);
+                } else if (roundOutcome === "player") {
+                    playerScore = playerScore + 1;
+                    console.log(`that's cheap. Your score: ${playerScore} My Score: ${computerScore}`);
+                } else {
+                    console.log("Tie game. Redo.");
+                    i = i - 1;
+                }
+            }
+            if (computerScore > playerScore) {
+                console.log("Sucks to suck, I win");
+            } else {
+                console.log("This is a stupid game anyway. You win.")
+            }
+        }
 
+        playGame();
 
 
 
