@@ -35,10 +35,53 @@
             choice = prompt("Choose rock, paper, or scissors", "");
             return choice.toLowerCase();
         }
-        let computerChoice = convertRandomNumber();
-        let playerChoice = getPlayerSelection();
+
+        function playRound(computerChoice, playerChoice) {
+            let outcome;
+            if (computerChoice == "rock") {
+                switch (playerChoice) {
+                    case "rock":
+                        outcome = "Tie game!";
+                        break;
+                    case "paper":
+                        outcome = "Paper covers rock ): You win.";
+                        break;
+                    case "scissors":
+                        outcome = "Rock beats scissors! I win tee hee (:";
+                        break;
+                }
+            } else if (computerChoice == "paper") {
+                switch (playerChoice) {
+                    case "rock":
+                        outcome = "Paper covers rock (: I win.";
+                        break;
+                    case "paper":
+                        outcome = "Tie game. Lame";
+                        break;
+                    case "scissors":
+                        outcome = "Scissors cuts paper ): You win.";
+                        break;
+                }
+            } else {
+                switch (playerChoice) {
+                    case "rock":
+                        outcome = "Rock beats scissors ): You win.";
+                        break;
+                    case "paper":
+                        outcome = "Scissors cut paper (: I win.";
+                        break;
+                    case "scissors":
+                        outcome = "Tie.";
+                        break;
+                }
+            }
+            return outcome;
+        }
+        const computerChoice = convertRandomNumber();
+        const playerChoice = getPlayerSelection();
         console.log("You chose " + playerChoice);
         console.log("I chose " + computerChoice);
+        console.log(playRound(computerChoice, playerChoice));
 
 
 
