@@ -11,28 +11,29 @@
 <body>
     <script>
         function createrandom() {
-            return 1 + (Math.random() * ((3 - 1) + 1));
+            let randomDecimal = 1 + (Math.random() * ((2 - 1) + 1));
+            return Math.round(randomDecimal);
 
         }
 
-        let randomNumber = createrandom();
-
-        let computerChoice = function getComputerChoice(random) {
-            switch (random) {
+        function convertRandomNumber() {
+            let choice;
+            let randomNumber = createrandom();
+            console.log(randomNumber);
+            switch (randomNumber) {
                 case 1:
-                    return "rock";
+                    choice = "rock";
                     break;
-                case 2:
-                    return "paper";
+                case 2: choice = "paper";
                     break;
-                case 3:
-                    return "scissors";
+                case 3: choice = "scissors";
                     break;
             }
+            console.log(choice)
+            return choice;
         }
-        console.log(randomNumber);
-        computerChoice();
-        console.log(computerChoice);
+        let computerChoice = convertRandomNumber();
+        console.log("I chose " + computerChoice);
 
 
 
