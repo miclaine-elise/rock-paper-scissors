@@ -19,7 +19,6 @@
         function convertRandomNumber() {
             let choice;
             let randomNumber = createrandom();
-            console.log(randomNumber);
             switch (randomNumber) {
                 case 1:
                     choice = "rock";
@@ -29,10 +28,16 @@
                 case 3: choice = "scissors";
                     break;
             }
-            console.log(choice)
             return choice;
         }
+
+        function getPlayerSelection() {
+            choice = prompt("Choose rock, paper, or scissors", "");
+            return choice.toLowerCase();
+        }
         let computerChoice = convertRandomNumber();
+        let playerChoice = getPlayerSelection();
+        console.log("You chose " + playerChoice);
         console.log("I chose " + computerChoice);
 
 
