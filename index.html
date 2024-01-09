@@ -9,11 +9,25 @@
 </head>
 
 <body>
+    <button value="rock" id="rock">Rock</button>
+    <button value="paper" id="paper">Paper</button>
+    <button value="scissors" id="scissors">Scissors</button>
+
+
     <script>
+        let rockBtn = document.querySelector('#rock');
+        let paperBtn = document.querySelector('#paper');
+        let scissorsBtn = document.querySelector('#scissors');
+        let decisionText = document.createElement('div');
+        let computerScore = 0;
+        let playerScore = 0;
+        let roundOutcome;
+        let roundsPlayed = 0;
+        playGame();
 
 
 
-        function playRound() {
+        function playRound(choice) {
 
             function createrandom() {
                 let randomDecimal = 1 + (Math.random() * ((2 - 1) + 1));
@@ -36,14 +50,12 @@
                 return choice;
             }
 
-            function getPlayerSelection() {
-                choice = prompt("Choose rock, paper, or scissors", "");
-                return choice.toLowerCase();
-            }
-
             let computerChoice = getComputerSelection();
-            let playerChoice = getPlayerSelection();
+            let playerChoice = choice;
             let outcome;
+            decisionText.textContent = 'You chose ' + playerChoice + ' and I chose ' + computerChoice;
+            let body = document.querySelector('body');
+            body.appendChild(decisionText);
             console.log("You chose " + playerChoice + " and I chose " + computerChoice);
             if (computerChoice == "rock") {
                 switch (playerChoice) {
@@ -84,30 +96,80 @@
             }
             return outcome;
         }
-        function playGame() {
-            let computerScore = 0;
-            let playerScore = 0;
-            for (let i = 1; i <= 5; i++) {
-                let roundOutcome = playRound();
-                if (roundOutcome === "computer") {
-                    computerScore = +computerScore + 1;
-                    console.log(`Haha got 'em. Your score: ${playerScore} My Score: ${computerScore}`);
-                } else if (roundOutcome === "player") {
-                    playerScore = playerScore + 1;
-                    console.log(`that's cheap. Your score: ${playerScore} My Score: ${computerScore}`);
-                } else {
-                    console.log("Tie game. Redo.");
-                    i = i - 1;
-                }
+        function score(roundOutcome) {
+            if (roundOutcome === "computer") {
+                computerScore = +computerScore + 1;
+                console.log(`Haha got 'em. Your score: ${playerScore} My Score: ${computerScore}`);
+            } else if (roundOutcome === "player") {
+                playerScore = playerScore + 1;
+                console.log(`that's cheap. Your score: ${playerScore} My Score: ${computerScore}`);
+            } else {
+                console.log("Tie game. Redo.");
             }
+        }
+
+        function endGame() {
             if (computerScore > playerScore) {
                 console.log("Sucks to suck, I win");
             } else {
                 console.log("This is a stupid game anyway. You win.")
             }
+            computerScore = 0;
+            playerScore = 0;
+            roundsPlayed = 0;
         }
 
-        playGame();
+        function playGame(firstChoice) {
+
+
+            rockBtn.onclick = function () {
+                choice = rockBtn.value;
+                roundOutcome = playRound(choice);
+                console.log(roundOutcome);
+                if (roundOutcome === 'computer' || roundOutcome === 'player') {
+                    roundsPlayed = roundsPlayed + 1;
+                }
+                console.log(roundsPlayed);
+                score(roundOutcome);
+                if (roundsPlayed === 5) {
+                    endGame();
+                }
+            }
+            paperBtn.onclick = function () {
+                choice = paperBtn.value;
+                roundOutcome = playRound(choice);
+                if (roundOutcome === 'computer' || roundOutcome === 'player') {
+                    roundsPlayed = roundsPlayed + 1;
+                }
+                score(roundOutcome);
+                if (roundsPlayed === 5) {
+                    endGame();
+                }
+            }
+            scissorsBtn.onclick = function () {
+                choice = scissorsBtn.value;
+                roundOutcome = playRound(choice);
+                if (roundOutcome === 'computer' || roundOutcome === 'player') {
+                    roundsPlayed = roundsPlayed + 1;
+                }
+                score(roundOutcome);
+                if (roundsPlayed === 5) {
+                    endGame();
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 
