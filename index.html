@@ -5,13 +5,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Stupid Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <button value="rock" id="rock">Rock</button>
-    <button value="paper" id="paper">Paper</button>
-    <button value="scissors" id="scissors">Scissors</button>
+    <h2>
+        <text id="playerScore">HUMAN: 0</text>
+        <text id="round"> </text>
+        <text id="computerScore">COMPUTER: 0</text>
+    </h2>
+    <div id="outcomeText">
+        <text id="playerOutcome"> </text>
+        <text id="computerOutcome"> </text>
+    </div>
+    <div id="outputPhotos">
+        <img id="playerOutput" src=winning_rock.jpg>
+        <img id="computerOutput" src=winning_paper.jpg>
+
+    </div>
+    <h1 class="weaponTitle">SELECT YOUR WEAPON</h1>
+    <div class="buttons">
+        <button value="rock" id="rock">Rock</button>
+        <button value="paper" id="paper">Paper</button>
+        <button value="scissors" id="scissors">Scissors</button>
+    </div>
+
+
+    <div id="winnerText"></div>
+
 
 
     <script>
@@ -19,6 +41,15 @@
         let paperBtn = document.querySelector('#paper');
         let scissorsBtn = document.querySelector('#scissors');
         let decisionText = document.createElement('div');
+        let winnerText = document.querySelector('#winnerText');
+        let body = document.querySelector('body');
+        let computerScoreDisplay = document.querySelector('#computerScore');
+        let playerScoreDisplay = document.querySelector('#playerScore');
+        let playerOutput = document.querySelector('#playerOutput');
+        let computerOutput = document.querySelector('#computerOutput')
+        let round = document.querySelector('#round');
+        let playerOutcome = document.querySelector('#playerOutcome');
+        let computerOutcome = document.querySelector('#computerOutcome');
         let computerScore = 0;
         let playerScore = 0;
         let roundOutcome;
@@ -53,44 +84,68 @@
             let computerChoice = getComputerSelection();
             let playerChoice = choice;
             let outcome;
-            decisionText.textContent = 'You chose ' + playerChoice + ' and I chose ' + computerChoice;
-            let body = document.querySelector('body');
             body.appendChild(decisionText);
             console.log("You chose " + playerChoice + " and I chose " + computerChoice);
             if (computerChoice == "rock") {
                 switch (playerChoice) {
                     case "rock":
                         outcome = "tie";
+                        playerOutput.src = "losing_rock.jpg";
+                        computerOutput.src = "losing_rock.jpg";
+
                         break;
                     case "paper":
                         outcome = "player";
+                        playerOutput.src = "winning_paper.jpg";
+                        computerOutput.src = "losing_rock.jpg";
                         break;
                     case "scissors":
                         outcome = "computer";
+                        playerOutput.src = "losing_scissors.jpg";
+                        computerOutput.src = "winning_rock.jpg";
+
+
                         break;
                 }
             } else if (computerChoice == "paper") {
                 switch (playerChoice) {
                     case "rock":
                         outcome = "computer";
+                        playerOutput.src = "losing_rock.jpg";
+                        computerOutput.src = "winning_paper.jpg";
+
                         break;
                     case "paper":
                         outcome = "tie";
+                        playerOutput.src = "losing_paper.jpg";
+                        computerOutput.src = "losing_paper.jpg";
                         break;
                     case "scissors":
                         outcome = "player";
+                        playerOutput.src = "winning_scissors.jpg";
+                        computerOutput.src = "losing_paper.jpg";
+
                         break;
                 }
             } else {
                 switch (playerChoice) {
                     case "rock":
                         outcome = "player";
+                        playerOutput.src = "winning_rock.jpg";
+                        computerOutput.src = "losing_scissors.jpg";
+
                         break;
                     case "paper":
                         outcome = "computer";
+                        playerOutput.src = "losing_paper.jpg";
+                        computerOutput.src = "winning_scissors.jpg";
+
                         break;
                     case "scissors":
                         outcome = "tie";
+                        playerOutput.src = "losing_scissors.jpg";
+                        computerOutput.src = "losing_scissors.jpg";
+
                         break;
                 }
             }
@@ -99,27 +154,65 @@
         function score(roundOutcome) {
             if (roundOutcome === "computer") {
                 computerScore = +computerScore + 1;
-                console.log(`Haha got 'em. Your score: ${playerScore} My Score: ${computerScore}`);
+                computerScoreDisplay.textContent = "COMPUTER: " + computerScore;
+                playerScoreDisplay.textContent = "HUMAN: " + playerScore;
+                computerOutcome.textContent = "WINNER";
+                playerOutcome.textContent = "LOSER";
+                playerOutcome.style.color = 'white';
+                computerOutcome.style.color = 'green';
+                computerOutput.style.borderColor = 'green';
+                playerOutput.style.borderColor = 'black';
+                computerScoreDisplay.style.color = 'white';
+                playerScoreDisplay.style.color = 'white';
+
+
             } else if (roundOutcome === "player") {
                 playerScore = playerScore + 1;
-                console.log(`that's cheap. Your score: ${playerScore} My Score: ${computerScore}`);
+                playerScoreDisplay.textContent = "HUMAN: " + playerScore;
+                computerScoreDisplay.textContent = "COMPUTER: " + computerScore;
+                playerOutcome.textContent = "WINNER";
+                computerOutcome.textContent = "LOSER";
+                playerOutcome.style.color = 'green';
+                computerOutcome.style.color = 'white';
+                playerOutput.style.borderColor = 'green';
+                computerOutput.style.borderColor = 'black';
+                computerScoreDisplay.style.color = 'white';
+                playerScoreDisplay.style.color = 'white';
+
+
             } else {
-                console.log("Tie game. Redo.");
+                playerOutcome.textContent = "TIE";
+                computerOutcome.textContent = "TIE";
+                playerOutcome.style.color = 'white';
+                computerOutcome.style.color = 'white';
+                computerOutput.style.borderColor = 'black';
+                playerOutput.style.borderColor = 'black';
+                playerScoreDisplay.textContent = "HUMAN: " + playerScore;
+                computerScoreDisplay.textContent = "COMPUTER: " + computerScore;
+                computerScoreDisplay.style.color = 'white';
+                playerScoreDisplay.style.color = 'white';
+
+
             }
         }
 
         function endGame() {
             if (computerScore > playerScore) {
                 console.log("Sucks to suck, I win");
+                round.textContent = "Sucks to suck, computer wins. ===>";
+                computerScoreDisplay.style.color = 'green';
             } else {
-                console.log("This is a stupid game anyway. You win.")
+                console.log("This is a stupid game anyway. You win.");
+                round.textContent = "<=== The vulnerable human wins this time.";
+                playerScoreDisplay.style.color = 'green';
+
             }
             computerScore = 0;
             playerScore = 0;
             roundsPlayed = 0;
         }
 
-        function playGame(firstChoice) {
+        function playGame() {
 
 
             rockBtn.onclick = function () {
@@ -128,6 +221,7 @@
                 console.log(roundOutcome);
                 if (roundOutcome === 'computer' || roundOutcome === 'player') {
                     roundsPlayed = roundsPlayed + 1;
+                    round.textContent = "ROUND " + roundsPlayed;
                 }
                 console.log(roundsPlayed);
                 score(roundOutcome);
@@ -140,6 +234,8 @@
                 roundOutcome = playRound(choice);
                 if (roundOutcome === 'computer' || roundOutcome === 'player') {
                     roundsPlayed = roundsPlayed + 1;
+                    round.textContent = "ROUND " + roundsPlayed;
+
                 }
                 score(roundOutcome);
                 if (roundsPlayed === 5) {
@@ -151,6 +247,8 @@
                 roundOutcome = playRound(choice);
                 if (roundOutcome === 'computer' || roundOutcome === 'player') {
                     roundsPlayed = roundsPlayed + 1;
+                    round.textContent = "ROUND " + roundsPlayed;
+
                 }
                 score(roundOutcome);
                 if (roundsPlayed === 5) {

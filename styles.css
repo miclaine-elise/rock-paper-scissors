@@ -1,0 +1,51 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+h2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+#outcomeText {
+    display: flex;
+    justify-content: space-around;
+    font-size: 32px;
+    margin: 10px;
+}
+
+#round {
+    font-size: 40px;
+}
+
+#outputPhotos {
+    display: flex;
+    justify-content: space-around;
+    height: 500px;
+}
+
+img {
+    width: auto;
+    height: auto;
+    max-height: 500px;
+    max-width: 450px;
+    flex: 1;
+    border-style: solid;
+    border-width: 10px;
+    border-color: black;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.weaponTitle {
+    text-align: center;
+}
+
+button {
+    padding: 5px;
+    font-size: 20px;
+    margin: 5px;
+}
